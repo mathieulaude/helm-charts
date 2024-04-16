@@ -7,7 +7,7 @@ on:
 
 jobs:
   lint-chart:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -17,7 +17,7 @@ jobs:
           command: lint
           config: .github/ct.yaml
   lint-docs:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: lint-chart
     steps:
       - name: Checkout
@@ -25,7 +25,7 @@ jobs:
       - name: Run helm-docs
         run: .github/helm-docs.sh
   kubeval-chart:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs:
       - lint-chart
       - lint-docs
@@ -42,7 +42,7 @@ jobs:
         run: .github/kubeval.sh
   install-chart:
     name: install-chart
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs:
       - lint-chart
       - lint-docs
